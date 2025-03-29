@@ -12,8 +12,9 @@ function Signup(){
 
     const navigate = useNavigate();
 
-    let handlesignup=(e)=>{
-        e.preventdeafult();
+    let handleSignup=(e)=>{
+        console.log("in frontend");
+        e.preventDefault();
         if(!email.match(emailcheck)){
             setError("please enter a valid email address");
         }
@@ -22,11 +23,15 @@ function Signup(){
             axios.post("http://localhost:9000/signup", {name,email,password}, {withCredentials:true})
             .then(Response=>{
                 if(Response.data==="already exists"){
+                    console.log("in frontend");
                     setError("email address already exists");
                 }
                 else if(Response.data==="success"){
                     navigate("/home");
                 }
+            })
+            .catch(error=>{
+                console.log("error in postlink", error);
             })
         }
     }
@@ -36,7 +41,7 @@ function Signup(){
     return(
         <>  
             <h5 id="signuphead">SIGNUP</h5>
-            <form onSubmit={(e)=>handlesignup(e)}>
+            <form onSubmit={(e)=>handleSignup(e)}>
                 <div className="signupform">
                     <input 
                     id="name"
@@ -52,7 +57,7 @@ function Signup(){
                     id="email"
                     type="text"
                     placeholder="enter your email"
-                    onChange={(e)=>setEmail(e.target.email)}
+                    onChange={(e)=>setEmail(e.target.value)}
                     required
                     >
                     </input>
