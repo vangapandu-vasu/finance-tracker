@@ -6,6 +6,10 @@ const Transaction = new mongoose.Schema({
         type:String,
         required:true,
     },
+    password:{
+        type:String,
+        required:true,
+    },
     descrpition:{
         type:String,
         
